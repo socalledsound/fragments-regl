@@ -13,11 +13,13 @@ const drawBG = regl({
         u_color1: [0.0, 1.0, 0.0, 1.0],
         u_color2: [0.0, 0.0, 1.0, 1.0],
         u_time: (context) => context.time,
+
     },
 
     count: 4,
     primitive: 'triangle fan'
 })
+
 
 regl.frame((context)=>{
     // console.log(context);
