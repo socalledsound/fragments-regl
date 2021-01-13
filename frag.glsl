@@ -16,9 +16,9 @@ vec3 rotate(vec3 pt, float theta){
   float c = cos(theta);
   float s = sin(theta);
   float aspect = 2.0/1.5;
-  mat3 mat = mat3(c,s,1, 
+  mat3 mat = mat3(c, s, 1, 
                   -s,c, 1, 
-                  s,c, 1);
+                  s, c, 1);
  
   pt = mat * pt;
   
@@ -30,7 +30,7 @@ vec3 rotate(vec3 pt, float theta){
 void main(){
     vec3 st = vec3(uv, 0.0);
 
-    vec3 rotPoints = rotate(st, u_time * 0.2);
+    vec3 rotPoints = rotate(st, u_time * 0.3);
 
     float n = snoise3(rotPoints);
     // float n = 0.01;
