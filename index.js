@@ -15,9 +15,9 @@ const drawBG = regl({
         u_time: (context) => context.time,
         u_resolution: [0,0],
         u_Frequency: 2.0,
-        u_NoiseScale : 6.0,
+        u_NoiseScale : 12.0,
         u_RingScale: 0.6,
-        u_Contrast: 4.0,
+        u_Contrast: 2.0,
     },
 
     count: 4,

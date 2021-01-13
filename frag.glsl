@@ -9,13 +9,16 @@ uniform float u_Contrast;
 uniform float u_time;
 varying vec2 uv;
 
+#pragma glslify: snoise3 = require(glsl-noise/simplex/3d)
+
 void main(){
-    float n = 0.3;
-    float ring = fract( u_Frequency * uv.x + u_NoiseScale * n );
-    ring *= u_Contrast * ( 1.0 - ring );
-    float lerp = pow( ring, u_RingScale ) + n;
-    vec4 color = mix(u_color1, u_color2, lerp);
-    // vec4 color = mix(u_color1, u_color2, (sin(u_time * uv.x/uv.y * 100.0) + 1.0)/2.0);
-    
+    vec3 st = vec3(uv, 0.0);
+
+    float n = snoise3(st);
+    // float n = 0.01;
+    float ring = fract( u_Frequency * uv.x  + u_NoiseScale * n * sin(u_time * 0.5) * 2.0 );
+    ring *= u_Contrast * ( 1.0 - ring ) ;
+    float lerp = pow( ring, u_RingScale ) + n ;
+    vec4 color = mix(u_color1, u_color2, lerp );
     gl_FragColor = color;
 }
