@@ -13,7 +13,7 @@ const drawBG = regl({
         u_color1: [0.0, 1.0, 0.0, 1.0],
         u_color2: [0.0, 0.0, 1.0, 1.0],
         u_time: (context) => context.time,
-        u_resolution: [0,0],
+        u_resolution: (context) => [context.viewportWidth, context.viewportHeight],
         u_Frequency: 2.0,
         u_NoiseScale : 6.0,
         u_RingScale: 0.6,
