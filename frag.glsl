@@ -11,12 +11,30 @@ varying vec2 uv;
 
 #pragma glslify: snoise3 = require(glsl-noise/simplex/3d)
 
+
+vec3 rotate(vec3 pt, float theta){
+  float c = cos(theta);
+  float s = sin(theta);
+  float aspect = 2.0/1.5;
+  mat3 mat = mat3(c,s,1, 
+                  -s,c, 1, 
+                  s,c, 1);
+ 
+  pt = mat * pt;
+  
+  return pt;
+}
+
+
+
 void main(){
     vec3 st = vec3(uv, 0.0);
 
-    float n = snoise3(st);
+    vec3 rotPoints = rotate(st, u_time * 0.2);
+
+    float n = snoise3(rotPoints);
     // float n = 0.01;
-    float ring = fract( u_Frequency * uv.x  + u_NoiseScale * n * sin(u_time * 0.5) * 2.0 );
+    float ring = fract( u_Frequency * uv.x  + u_NoiseScale * n * sin(u_time * 0.05) * 2.0 );
     ring *= u_Contrast * ( 1.0 - ring ) ;
     float lerp = pow( ring, u_RingScale ) + n ;
     vec4 color = mix(u_color1, u_color2, lerp );
